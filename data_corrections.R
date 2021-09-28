@@ -14,9 +14,9 @@ climatic_info_fut <- read_excel("Input_constant/meteo_bogota.xlsx",
 
 View(climatic_info)
 
-#sapply(climatic_info, class) revisar el tipo de clase de una tabla por año
+#sapply(climatic_info, class) Check class type of table climatic info
 
-# calcula porcentaje de faltantes de TMIN
+# compute percentage for NaNs values of TMIN
 climatic_info %>%
   group_by(Year)  %>%
   summarize(
@@ -25,7 +25,7 @@ climatic_info %>%
     percentage = (total_nan_tmin / total) * 100
   )
 
-# calcula porcentaje de faltantes de TMIN agrupado por año y mes
+# compute percentage for NaNs values of TMIN grouped by year and month
 climatic_info %>%
   group_by(Year, Month)  %>%
   summarize(
@@ -119,7 +119,7 @@ replace_na_wind <- function(value_wind_speed, param_month, param_day)
   return(value_wind_speed)
 }
 
-# use mapply para ejecutar la funcion [replace_na_wind] sobre los elementos de la tabla [table_wind_speed]
+# use mapply to execute function [replace_na_wind] to elements of the table [table_wind_speed]
 climatic_info_fut$wind_corrected <- mapply(replace_na_wind,
                                        climatic_info_fut$`Wind speed (m/s)`,
                                        climatic_info_fut$Month,
@@ -226,7 +226,7 @@ View(climatic_info)
 
 
 
-# mapply(nombre_de_funcion, parametro_1, parametro_2, ....)
+# mapply(function_name, parameter_1, parameter_2, ....)
 #for i = 0, i<len(table_wind_speed), i++:
 #  climatic_info$wind_corrected[i] = replace_na_wind(table_wind_speed[i])
 
